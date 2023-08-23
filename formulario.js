@@ -1,26 +1,25 @@
-var formulario = document.querySelector("#form")
+let formulario = document.querySelector(".formulario")
 
 formulario.onsubmit = function(e) {
 
-  e.prevent();
-  
-  var n = formulario.elements[0]
-  var e = formulario.elements[1]
-  var na = formulario.elements[2]
+  e.preventDefault() //para cancelar el comportamiento por default que ya tiene en este caso el formulario con el evento onsubmit
 
-  var nombre = n.value
-  var edad = e.value
+  // El nombre de las variables deben de ser descriptivas
+  // usar la definicion de la variable con let o const  porque var podria ocasionarnos problemas respecto a los alcances
+let nombre = formulario.elements[0].value
+let edad = formulario.elements[1].value
+let nacionalidad = formulario.elements[2].value
 
-  var i = na.selectedIndex
-  var nacionalidad = na.options[i].value
-  console.log(nombre, edad)
+
+  console.log(nombre)
+  console.log(edad)
   console.log(nacionalidad)
 
   if (nombre.length === 0) {
-    n.classList.add("error")
+    nombre.classList.add("error")
   }
   if (edad < 18 || edad > 120) {
-    e.classList.add("error")
+    edad.classList.add("error")
   }
 
 if (nombre.length > 0 
@@ -28,12 +27,13 @@ if (nombre.length > 0
     && edad < 120) ) {
   agregarInvitado(nombre, edad, nacionalidad)
   }
+ 
 }
 
-var botonBorrar = document.createElement("button")
+// let botonBorrar = document.createElement("button")// Se repite la creacion del boton borrar
 botonBorrar.textContent = "Eliminar invitado"
 botonBorrar.id = "boton-borrar"
-var corteLinea = document.createElement("br")
+let corteLinea = document.createElement("br")
 document.body.appendChild(corteLinea)
 document.body.appendChild(botonBorrar);
 
@@ -52,25 +52,28 @@ function agregarInvitado(nombre, edad, nacionalidad) {
     nacionalidad = "Peruana"
   }
 
-var lista = document.getElementById("lista-de-invitados")
+let lista = document.getElementById("lista-de-invitados") //se agrego en el html el id a un div 
 
-var elementoLista = document.createElement("div")
-elementoLista.classList.added("elemento-lista")
+let elementoLista = document.createElement("div")
+elementoLista.classList.add("elemento-lista")
 lista.appendChild(elementoLista)
 
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = "Nombre: "
-inputNombre.value = nombre 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
+
+// se esta creando nuevamente los campos de nombre solo que aqui unicamente creamos los elementos para el nombre
+// por lo que es mas recomendable realizarlo con una funcion que se pueda reutilizar y no tengamos que crear elementos del DOM, para cada variable
+// let spanNombre = document.createElement("span")
+// let inputNombre = document.createElement("input")
+// let espacio = document.createElement("br")
+// spanNombre.textContent = "Nombre: "
+// inputNombre.value = nombre 
+// elementoLista.appendChild(spanNombre)
+// elementoLista.appendChild(inputNombre)
+// elementoLista.appendChild(espacio)
 
 function crearElemento(descripcion, valor) {
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
+let spanNombre = document.createElement("span")
+let inputNombre = document.createElement("input")
+let espacio = document.createElement("br")
 spanNombre.textContent = descripcion + ": "
 inputNombre.value = valor 
 elementoLista.appendChild(spanNombre)
@@ -83,10 +86,10 @@ crearElemento("Edad", edad)
 crearElemento("Nacionalidad", nacionalidad)
 
 
-var botonBorrar = document.createElement("button")
+let botonBorrar = document.createElement("button")
 botonBorrar.textContent = "Eliminar invitado"
 botonBorrar.id = "boton-borrar"
-var corteLinea = document.createElement("br")
+let corteLinea = document.createElement("br")
 elementoLista.appendChild(corteLinea)
 elementoLista.appendChild(botonBorrar);
 
